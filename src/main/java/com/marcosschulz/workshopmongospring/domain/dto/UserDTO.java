@@ -7,6 +7,7 @@ import java.io.Serializable;
 public class UserDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    //define os campos que permite o acesso pelo dto
     private String id;
     private String name;
     private String email;
@@ -14,6 +15,7 @@ public class UserDTO implements Serializable {
     public UserDTO() {
     }
 
+    //passa para os campos os dados que estão no usuario
     public UserDTO(User obj) {
         id = obj.getId();
         name = obj.getName();
