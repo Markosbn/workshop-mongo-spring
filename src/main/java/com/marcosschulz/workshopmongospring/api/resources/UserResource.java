@@ -1,6 +1,7 @@
 package com.marcosschulz.workshopmongospring.api.resources;
 
 import com.marcosschulz.workshopmongospring.domain.dto.UserDTO;
+import com.marcosschulz.workshopmongospring.domain.models.Post;
 import com.marcosschulz.workshopmongospring.domain.models.User;
 import com.marcosschulz.workshopmongospring.domain.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,12 @@ public class UserResource {
         userObj.setId(id);
         userObj = service.update(userObj);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPostsByUserId(@PathVariable String id){
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
     }
 
 }
