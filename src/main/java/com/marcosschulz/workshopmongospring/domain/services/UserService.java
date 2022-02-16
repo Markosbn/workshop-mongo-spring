@@ -7,7 +7,6 @@ import com.marcosschulz.workshopmongospring.domain.services.exceptions.ObjectNot
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +32,17 @@ public class UserService {
     public void delete(String id){
         findById(id);
         repository.deleteById(id);
+    }
+
+    public User update(User obj){
+        User newUser = findById(obj.getId());
+        updateData(newUser, obj);
+        return repository.save(newUser);
+    }
+
+    private void updateData(User newUser, User obj) {
+        newUser.setName(obj.getName());
+        newUser.setEmail(obj.getName());
     }
 
     public User fromDTO(UserDTO objDto){
