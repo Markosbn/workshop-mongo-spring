@@ -9,6 +9,7 @@ import com.marcosschulz.workshopmongospring.domain.services.exceptions.ObjectNot
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +29,12 @@ public class PostService {
     }
 
     public List<Post> findByTitle(String text){
-        return repository.findByTitleContainingIgnoreCase(text);
+        return repository.searchByTitle(text);
+    }
+
+    public List<Post> fullSearch(String text, Date minDate, Date maxDate) {
+        //adição de um dia na data maxima para não ter interferencia do gmt
+        maxDate = new Date(maxDate.getTime() + 24 * 60 * 60 * 1000);
+        return repository.fullSearch(text, minDate, maxDate);
     }
 }
